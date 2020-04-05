@@ -1,0 +1,130 @@
+\documentclass[12pt]{article}
+
+\usepackage{graphicx}
+\usepackage{paralist}
+\usepackage{listings}
+
+\oddsidemargin 0mm
+\evensidemargin 0mm
+\textwidth 160mm
+\textheight 200mm
+
+\pagestyle{plain}
+\pagenumbering{arabic}
+
+\newcounter{stepnum}
+
+\title{Assignment 1 Report}
+\author{Hamid Ghasemi}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+
+\section{Testing of the Original Program}
+Basically, the testing for SeqADT starts with defining a variable to SeqT class and then setting it to a random sequence and use the object that has been created in SeqT for all the functions. And now we can test all functions which have been defined in the SeqT. Checking add function is important since if i is more than array index puts the input element at the end, if not it inserts the element in the desired placement. The testing module is made by try, assert, and except. After assert there is a print statement that if it's true it passes, otherwise it would print fail which is in except section. And all the functions have the same type of testing. For CurveT the test run starts with assigning a variable to a text file such as (CurveT("?.txt")). And then it does the exact same thing as SeqT test. If it has an error, it would print fail, and it prints pass if it is correct. All results passed for both SeqT and CurveT. All the problems are covered although there are not too many test cases for all the functions.
+
+
+\section{Results of Testing Partner's Code}
+
+I got 9/9 with changing variables name of my partner’s code, and got errors without changing them. It's reasonable because in assignment variable name is not specified, so everyone can pick their own name for the variables. His code is reliable and it can be used by other people.
+
+\section{Discussion of Test Results}
+
+\subsection{Problems with Original Code}
+In original code there were cases that I forgot to cover like what happens when denominator
+of the function linVal or quadval are equal to zero. That would cause an error if it is not specified by the code. And another example was that in the SeqT, I forgot that the program will return error if for set function i is outside of range seq[a]. And there were other similar problems to this case for other functions in SeqT.
+
+\subsection{Problems with Partner's Code}
+My partner's code works with my testrun, however in order to run the code the initial function name has to be changed since I defined my sequence with variable name seq while my partner has assigned his sequence with variable name of sequence; therefore, when the testrun runs it gives an error, saying seq is not defined.
+
+\subsection{Problems with Assignment Specification}
+The assignment is straightforward, however there are some parts that are not completely explained, for example in curveT for function quad is not defined what is x0 so x0 can be considered element before x1 or after x2. There were other parts that didn't specify what happens in other cases and this would result a huge difference in writing the program.
+
+\section{Answers}
+
+\begin{enumerate}
+
+\item For each of the methods in each of the classes, please classify it as a
+  constructor, accessor or mutator.
+
+Constructor: init for both SeqT and CurveT (first function)\\
+        Accessor: get, size, indexInSeq, linVal, quadVal, npolyVal\\
+        Mutator: add, rm, set
+
+
+\item What are the advantages and disadvantages of using an external library
+  like \texttt{numpy}?
+
+Advantage would be that the function is already in the library so we don't need to spend time on making a function that works. For disadvantage I would say sometimes the libraries that have been created are not in Program; therefore, developer must download them from the internet and this would take time. And another disadvantage is library cannot be changed.
+
+\item The \texttt{SeqT} class overlaps with the functionality provided by
+  Python's in-built list type.  What are the differences between \texttt{SeqT}
+  and Python's list type?  What benefits does Python's list type provide over
+  the \texttt{SeqT} class?
+
+In Python’s list by using and index we can access the elements while in SeqT we must use accessor to access the elements. Python's list is made for specific job and cannot be changed while SeqT is a class that has been designed and can be changed very easily. Plus Python's list is easy to use, for example by using numpy there is no need to create another function that does what numpy does. Hence, it would be less time consuming and resources.
+
+\item What complications would be added to your code if the assumption that
+  $x_i < x_{i+1}$ no longer applied?
+
+Then it means the numbers are not in sorted array. If the array does not get sorted, it would change the output. To search and find number X between xi and xi+1 would give a different output for i. Exp \\ 
+x= 2.3    [-1, 1 , 6, 8]  i= 1 \\
+x= 2.3    [6, -1, 1, 8]   i = 2
+
+
+\item Will \texttt{linVal(x)} equal \texttt{npolyVal(n, x)} for the same \texttt{x}
+  value?  Why or why not?
+  
+For the same x value for linVal(x) and npolyVal(n, x) won't be equal. Since linVal is interpolation approximation, and npoly is regression approximation, they won't necessarily get the same result. However, it is possible that linVal and npoly will get the same result.
+
+
+Answer
+\end{enumerate}
+
+\newpage
+
+\lstset{language=Python, basicstyle=\tiny, breaklines=true, showspaces=false,
+  showstringspaces=false, breakatwhitespace=true}
+%\lstset{language=C,linewidth=.94\textwidth,xleftmargin=1.1cm}
+
+\def\thesection{\Alph{section}} 
+
+\section{Code for SeqADT.py}
+
+\noindent \lstinputlisting{../src/SeqADT.py}
+
+\newpage
+
+\section{Code for CurveADT.py}
+
+\noindent \lstinputlisting{../src/CurveADT.py}
+
+\newpage
+
+\section{Code for testSeqs.py}
+
+\noindent \lstinputlisting{../src/testSeqs.py}
+
+\newpage
+
+\section{Code for Partner's SeqADT.py}
+
+\noindent \lstinputlisting{../partner/SeqADT.py}
+
+\newpage
+
+\section{Code for Partner's CurveADT.py}
+
+\noindent \lstinputlisting{../partner/CurveADT.py}
+
+\newpage
+
+\section{Makefile}
+
+\lstset{language=make}
+\noindent \lstinputlisting{../Makefile}
+
+\end{document}

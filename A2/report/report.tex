@@ -1,0 +1,150 @@
+\documentclass[12pt]{article}
+
+\usepackage{graphicx}
+\usepackage{paralist}
+\usepackage{listings}
+\usepackage{booktabs}
+
+\oddsidemargin 0mm
+\evensidemargin 0mm
+\textwidth 160mm
+\textheight 200mm
+
+\pagestyle {plain}
+\pagenumbering{arabic}
+
+\newcounter{stepnum}
+
+\title{Assignment 2 Report}
+\author{Hamid Ghasemi ghasemih}
+\date{\today}
+
+\begin {document}
+
+\maketitle
+
+
+
+\section{Testing of the Original Program}
+
+Basically, the testing for CurveT starts with assigning a variable to CurveT class and then make x,y, min, max, o and it automatically makes f out of other objects. Then it uses those objects which have been created in CurveT for all the functions. For Data, we would do the exact same method for data objects although Data is abstract object, so each time we would use variable.data in order to test functions in Data module. And SeqService is not class; therefore, we don’t need to assign a variable. We use each function directly in order to test all the methods from the SeqService module. For testing part based on using pytest out of 16 functions, 13 function’s passed and 3 functions didn’t pass. I wasn't able to make those 3 tests because of the time issue. But beside that all functions from curveT and SeqService are perfectly working while for Data module there are three functions that are working but I didn’t make test cases in the first round of assignment. In order to be able to see if the test has passed or not, I made a test function for each method by using assert and run the pytest. If the function displays the expectational output, it will display passed. In overall the number I got from testing is 13 out of 16.
+
+\section{Results of Testing Partner's Code}
+
+According to my partner codes majority of the cases passed (10/16) by using pytest in the first time of trying; however, there are some issues that exist in my code and my partner code. For Data module I didn't read the specification precisely, so instead of making abstract object, I made abstract data type which is not following the specification though it’s not wrong. Therefore, When I wanted to test his codes for Data module I had to change his to get it to work. And in his code, he has made DX as a local variable however he has used self in order to use that variable for function dfdx. He used DX as a object data though it’s not. After fixing all of those, his code passed all the testcases except the ones I didn’t make. So in overall 13/16 functions from his code passed by using my test runs.
+
+\section{Discussion of Test Results}
+
+\subsection{Problems with Original Code}
+From this assignment I have learned that if software engineer doesn't understand the specification it can make a huge impact on the way he/she writes the code. This can affect the whole process, so he/she should ask from others to get a better understanding. Also learned what's the difference between data object and abstract data object and how they are different and why they are different. Plus using pytest can aid a lot and it's very simple to use. As I have said before, I made a mistake defining my data init which instead of making it to be data object, I created abstract data object. In addition to that, when I was constructing my code, I didn't pay attention to bounding which made problems when I was trying to test it but I eventually figured it out.
+
+\subsection{Problems with Partner's Code}
+For my partner the only problems that I found were defining interp from CurveT inside the class of CurveT while the specification has asked to make it local. This is not big of the deal however doesn't follow the requirement. And there is a function eq that has been created in the CurveT although there is not such a function that should be created in the module. That's not wrong but the way it's been written, the method could have been constructed inside of the other functions.
+
+\subsection{Problems with Assignment Specification}
+I didn't find any problem in the specification although there were some situation that specification didn't explain what happens in special cases, for instance index function in the Seqservice module. It checks if x is in the range of the sequence but what would happen if x is outside of the range of the sequence. This can affect the code since we are not making any condition for it.
+
+\section{Answers}
+
+\begin{enumerate}
+
+\item What is the mathematical specification of the \texttt{SeqServices} access
+  program isInBounds(X, x) if the assumption that X is ascending is removed?\\
+Since we cannot assume it is ascending or not, we have to make an exception\\
+exception:= (($\exists(i | i \in [0..|X|-2] : X_{i+1} < X_i)) \Rightarrow \mbox{IndepVarNotAscending)}$
+
+\item How would you modify \texttt{CurveADT.py} to support cubic interpolation? \\
+Based on the specification in the curveT, there is a condition that has been defined for both interpLin and interpQuad functions. We can extend the if statement and
+make another condition that when for interp function o == 3 it returns cubic interpolation function. The actual cubic function can be made inside of the CurveT or Seqservice
+like interpLin and interpQuad functions. 
+
+\item What is your critique of the CurveADT module's interface.  In particular,
+  comment on whether the exported access programs provide an interface that is
+  consistent, essential, general, minimal and opaque. \\
+  For CurveADT module’s, the exported access programs provide an interface which is 
+  1- consistent  2- essential  3- minimal (each method will do one job) 4- it is not general, according to general the module cannot always be predicted how the module will be used but in CurveADT it is predictable how the module will be used. 5- it is opaque since it hides information from users. The local function interp is hidden from the client. 
+   
+  
+
+\item What is your critique of the Data abstract object's interface.  In
+  particular, comment on whether the exported access programs provide an
+  interface that is consistent, essential, general, minimal and opaque. \\
+  For Data module’s, the exported access programs provide an interface which is
+  1- consistent  2- essential  3- minimal (each method will do one job) 4- it is not general
+  and it is not opaque.
+  
+  
+
+\end{enumerate}
+
+\newpage
+
+\lstset{language=Python, basicstyle=\tiny, breaklines=true, showspaces=false,
+  showstringspaces=false, breakatwhitespace=true}
+
+\def\thesection{\Alph{section}}
+
+\section{Code for CurveADT.py}
+
+\noindent \lstinputlisting{../src/CurveADT.py}
+
+\newpage
+
+\section{Code for Data.py}
+
+\noindent \lstinputlisting{../src/Data.py}
+
+\newpage
+
+\section{Code for SeqServices.py}
+
+\noindent \lstinputlisting{../src/SeqServices.py}
+
+\newpage
+
+\section{Code for Plot.py}
+
+\noindent \lstinputlisting{../src/Plot.py}
+
+\newpage
+
+\section{Code for Load.py}
+
+\noindent \lstinputlisting{../src/Load.py}
+
+\newpage
+
+\section{Code for testAll.py}
+
+\noindent \lstinputlisting{../src/test_All.py}
+
+\newpage
+
+
+\section{Code for Partner's CurveADT.py}
+
+% Uncomment the line below when partner files have been pushed to your repo
+\noindent \lstinputlisting{../partner/CurveADT.py}
+
+\newpage
+
+\section{Code for Partner's Data.py}
+
+% Uncomment the line below when partner files have been pushed to your repo
+\noindent \lstinputlisting{../partner/Data.py}
+
+\newpage
+
+\section{Code for Partner's SeqServices.py}
+
+% Uncomment the line below when partner files have been pushed to your repo
+\noindent \lstinputlisting{../partner/SeqServices.py}
+
+\newpage
+
+\section{Makefile}
+
+\lstset{language=make}
+\noindent \lstinputlisting{../Makefile}
+
+\end {document}

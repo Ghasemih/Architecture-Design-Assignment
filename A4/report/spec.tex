@@ -1,0 +1,315 @@
+\documentclass[12pt]{article}
+
+\usepackage{graphicx}
+\usepackage{paralist}
+\usepackage{amsfonts}
+
+\oddsidemargin 0mm
+\evensidemargin 0mm
+\textwidth 150mm
+\textheight 200mm
+\renewcommand\baselinestretch{1.0}
+
+\pagestyle {plain}
+\pagenumbering{arabic}
+
+\newcounter{stepnum}
+
+\title{Assignment 5, Part 1, Specification}
+\author{SFWR ENG 2AA4}
+
+\begin {document}
+
+\maketitle
+
+The purpose of this software design exercise is to design, specify, implement and test a module for storing the state
+of an Freecell game.
+\newpage 
+\section* {CardADT Module}
+
+\subsection*{Module}
+CardT
+\subsection* {Uses}
+
+N/A
+
+\subsection* {Syntax}
+
+\subsubsection* {Exported Constants}
+Size = 52 \\
+\subsubsection* {Exported Types}
+	CardT = ?
+\subsubsection* {Exported Access Programs}
+
+\begin{tabular}{| l | l | l | p{7cm} |}
+\hline
+\textbf{Routine name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions}\\
+
+\hline
+CardT & string, string & CardT & \\
+\hline
+Suit & ~ & string & \\
+\hline
+Face & ~ & string & \\
+\hline
+
+
+
+\end{tabular}
+
+\subsection* {Semantics}
+
+\subsubsection* {State Variables}
+
+$face$: string\\
+$suit$: string\\
+
+
+\subsubsection* {State Invariant}
+
+None
+
+\subsubsection* {Assumptions}
+
+The CardT method is called for the abstract object before any other access routine is called for that
+object.  The CardT method can be used to return the state of the game to the state of a new game.
+
+\subsubsection* {Access Routine Semantics}
+
+CardT(a, b):
+\begin{itemize}
+\item transition: 
+ face, suit = a,b
+\item output:
+ $out := \mathit{self}$
+\item exception :
+none
+
+\end{itemize}
+
+Suit():
+\begin{itemize}
+\item output: 
+$out :=$  suit
+\item exception :
+none
+\end{itemize}
+
+Face():
+\begin{itemize}
+	\item output: 
+	$out :=$ face
+	\item exception :
+	none
+\end{itemize}
+
+
+\newpage
+\section* {DeckOfCardsADT Module}
+
+\subsection*{Module}
+DeckOfCardsT
+\subsection* {Uses}
+CardT
+
+\subsection* {Syntax}
+
+\subsubsection* {Exported Constants}
+Size = 52 \\
+\subsubsection* {Exported Types}
+DeckofCardsT = ?
+\subsubsection* {Exported Access Programs}
+
+\begin{tabular}{| l | l | l | p{7cm} |}
+	\hline
+	\textbf{Routine name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions}\\
+	\hline
+	DeckOfCardsT &  & CardT & \\
+	\hline
+	getColor& CardT & string & \\
+	\hline
+	shuffle & ~ & CardT & \\
+	\hline
+	dealCard & ~ & CardT & \\
+	\hline
+
+\end{tabular}
+
+\subsection* {Semantics}
+
+\subsubsection* {State Variables}
+
+$deck : cardT$
+
+\subsubsection* {State Invariant}
+
+None
+
+\subsubsection* {Assumptions}
+
+The DeckOfCardsT method is called for the abstract object before any other access routine is called for that
+object.  The DeckOfCardsT method can be used to return the state of the game to the state of a new game.
+
+\subsubsection* {Access Routine Semantics}
+
+DeckOfCardsT():
+\begin{itemize}
+	\item transition: 
+	string faces[ ] = \{"Ace", "2", "3", "4", "5", "6", "7", "8", "9", "10", "Jack", "Queen", "King"\}\\
+	string suits[ ] = \{"Hearts", "Diamonds", "Clubs", "Spades"\}
+	\item output:
+	$out := \mathit{deck}$
+	\item exception :
+	none
+
+\end{itemize}
+
+getColor(a):
+\begin{itemize}
+	\item output: 
+	$out :=$ color
+	\item exception :
+	none
+\end{itemize}
+
+shuffle():
+\begin{itemize}
+	\item output: 
+	$out :=$ face, suit
+	\item exception
+	None
+\end{itemize}
+
+dealCard():
+\begin{itemize}
+	\item output: 
+	$out := deck$
+	\item exception
+	None
+\end{itemize}
+
+
+\newpage
+\section* {BoardADT Module}
+
+\subsection*{Module}
+BoardT 
+\subsection* {Uses}
+CardT, DeckOfCardsT
+
+\subsection* {Syntax}
+
+\subsubsection* {Exported Constants}
+Size = 52 \\
+\subsubsection* {Exported Types}
+BoardT = ?
+\subsubsection* {Exported Access Programs}
+
+\begin{tabular}{| l | l | l | p{7cm} |}
+	\hline
+	\textbf{Routine name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions}\\
+	
+	\hline
+	BoardT &  & CardT, BoardT, BoardT  & \\
+	\hline
+	get & CardT & BoardT & \\
+	\hline
+	move & CardT,CardT & BoardT & \\
+	\hline
+	put & CardT & BoardT & \\
+	\hline
+	put & CardT,CardT & BoardT & \\
+	\hline
+	check & CardT  & BoardT \\
+	\hline
+	
+\end{tabular}
+
+\subsection* {Semantics}
+
+\subsubsection* {State Variables}
+
+$s : CardT$\\
+$a : BoardT$\\
+$b : BoardT$
+
+\subsubsection* {State Invariant}
+
+None
+
+\subsubsection* {Assumptions}
+
+The BoardT method is called for the abstract object before any other access routine is called for that
+object.  The BoardT method can be used to return the state of the game to the state of a new game.
+
+\subsubsection* {Access Routine Semantics}
+
+BoardT():
+\begin{itemize}
+	\item transition:\\ 
+	s := CardT S[7][8] \\
+	a := BoardT D[1][4] \\
+	b := BoardT D[1][4]
+	
+	\item output:
+	$out := \mathit{self}$
+	\item exception :
+	none
+	
+\end{itemize}
+
+get(c):
+\begin{itemize}
+	\item transition:\\ 
+	s[0][0]:= c
+	\item output: 
+	$out :=$ a
+	\item exception:\\
+	s[i][j] $\neq$ null $\Rightarrow$ invalid\_argument
+\end{itemize}
+
+move(a, b):
+\begin{itemize}
+	\item transition:
+	(getColor(a)$\neq$getColor(b) $\land$ $|a.Face()-b.Face()|=1$) $\Rightarrow$ put(a, b)
+	
+	\item output: 
+	$out := s,a,b$
+	\item exception:
+	none
+\end{itemize}
+
+put(a, b):
+\begin{itemize}
+	\item transition:
+	s[i][j] = a, s[i+1][j] = b
+	
+	\item output: 
+	$out := s,a, b$
+	\item exception:
+	(i = 6) $\Rightarrow$ Invalid\_moving
+\end{itemize}
+
+put(a):
+\begin{itemize}
+	\item transition:
+	$(a.Face() \neq Ace \land b[0][j]=null) \Rightarrow$ j $\in$ \{0..3\} b[0][j] = a\\
+	$(a.Face() = Ace \land b[0][j]=null) \Rightarrow$ j $\in$ \{0..3\} a[0][j] = a
+	\item output: 
+	$out := b, a $
+	\item exception:
+	none
+\end{itemize}
+
+check(a):
+\begin{itemize}
+	\item transition:
+	$(a.Suit() = b[i][j].Suit() \land |a.Face()-b[i][j].Face()|=1) \Rightarrow$ b[i+1][j]=a
+	\item output: 
+	$out := b$
+	\item exception:
+	none
+\end{itemize}
+
+\end {document}
+
